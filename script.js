@@ -1,17 +1,9 @@
 
-var location = {latitude: 90, Longitude:0, radius:100};
-
-var course;
+var data = {ContentType: application/json, latitude: 40.296898, Longitude:-111.694647, radius:50};
 var experiment;
-$.post('http://golf-courses-api.herokuapp.com/courses/:id',location, function(data, status){
-    experiment =JSON.parse(data);
+
+$.post('http://golf-courses-api.herokuapp.com/courses/search',  function (data, status){
+    experiment = JSON.parse(data);
     console.log(experiment);
 });
 
-
-
-
-// $.get('https://golf-courses-api.herokuapp.com/courses/11819', function (data, status){
-//     course = data;
-//     console.log(course);
-// });
