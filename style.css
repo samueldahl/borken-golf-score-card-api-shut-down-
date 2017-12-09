@@ -1,0 +1,10 @@
+table, tr, td{
+    border-color:black;
+    border:1px solid;
+}
+.score{
+    background-color:aquamarine;
+}
+.head{
+    background-color:lightgray;
+}
