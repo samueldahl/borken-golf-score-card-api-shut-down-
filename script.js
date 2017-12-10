@@ -23,10 +23,12 @@ function loadCourses() {
 
 loadCourses();
 
-function breakArray(){
+function appendCourses(){
     for (i = courseArray.length; i > 0; i--){
-        console.log('dank');
-        courseArray.pop(0);
+        var name = courseArray.pop(i);
+        var name2 = name.name;
+        var id = name.id;
+        $('#courseSelect').append('<option data-courseId="'+ id +'">'+ name2 +'</option>');
     }
 }
 
