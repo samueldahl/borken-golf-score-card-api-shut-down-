@@ -16,7 +16,7 @@ function loadCourses() {
         }
     };
     // set connection type and location
-    xhttp.open('POST', 'http://golf-courses-api.herokuapp.com/courses', true);
+    xhttp.open('POST', 'https://golf-courses-api.herokuapp.com/courses', true);
     // adds headers that the server will read
     xhttp.setRequestHeader('Content-Type', 'application/json');
     // send headers and 'data' as body to the server
