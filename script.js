@@ -11,6 +11,8 @@ function loadCourses() {
             var courses = JSON.parse(this.responseText).courses;
             // logs the data from the response that you needed
             courseArray = courses;
+            appendCourses();
+            // By calling append courses after courseArray = courses; I ensure that it has loaded before it runs. VICTORYgit
         }
     };
     // set connection type and location
@@ -31,7 +33,7 @@ function appendCourses(){
         $('#courseSelect').append('<option data-courseId="'+ id +'">'+ name2 +'</option>');
     }
 }
-loadCourses();
+loadCourses(a);
 
 
 
