@@ -33,7 +33,7 @@ function appendCourses(){
         $('#courseSelect').append('<option data-courseId="'+ id +'">'+ name2 +'</option>');
     }
 }
-loadCourses(a);
+loadCourses();
 
 
 
