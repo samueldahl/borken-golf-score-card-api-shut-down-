@@ -23,8 +23,6 @@ function loadCourses() {
     xhttp.send(JSON.stringify(data));
 }
 
-
-
 function appendCourses(){
     for (i = courseArray.length; i > 0; i--){
         var name = courseArray.pop(i);
@@ -33,39 +31,28 @@ function appendCourses(){
         $('#courseSelect').append('<option data-courseId="'+ id +'">'+ name2 +'</option>');
     }
 }
+
+var specificCourse;
+
+function loadSpecificCourse(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            var specificCourseLocal = JSON.parse(this.responseText).specificCourseLocal;
+            specificCOurse = specificCourseLocal;
+
+        }
+    };
+    var address = "http://golf-courses-api.herokuapp.com/courses/"+$('#courseSelect').data-courseid;
+    xhttp.open("GET", address, true);
+    xhttp.send();
+}
+function createScoreCard(){
+
+}
+
 loadCourses();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $.post('http://golf-courses-api.herokuapp.com/courses', data,  function (data, status){
-//     experiment = JSON.parse(data);
-//     console.log(experiment);
-// });
