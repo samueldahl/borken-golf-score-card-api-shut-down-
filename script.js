@@ -21,7 +21,7 @@ function loadCourses() {
     xhttp.send(JSON.stringify(data));
 }
 
-loadCourses();
+
 
 function appendCourses(){
     for (i = courseArray.length; i > 0; i--){
@@ -31,18 +31,7 @@ function appendCourses(){
         $('#courseSelect').append('<option data-courseId="'+ id +'">'+ name2 +'</option>');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
+loadCourses();
 
 
 
