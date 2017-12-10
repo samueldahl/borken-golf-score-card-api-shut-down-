@@ -1,5 +1,5 @@
 var data = {latitude: 40.296898, longitude:-111.694647, radius:50};
-
+var courseArray;
 function loadCourses() {
     // create instance of xhttp
     var xhttp = new XMLHttpRequest();
@@ -10,7 +10,7 @@ function loadCourses() {
             // parses response and reads from JSON
             var courses = JSON.parse(this.responseText).courses;
             // logs the data from the response that you needed
-            console.log(courses);
+            courseArray = courses;
         }
     };
     // set connection type and location
@@ -22,6 +22,14 @@ function loadCourses() {
 }
 
 loadCourses();
+
+function breakArray(){
+    for (i = courseArray.length; i > 0; i--){
+        console.log('dank');
+        courseArray.pop(0);
+    }
+}
+
 
 
 
