@@ -1,58 +1,55 @@
 var data = {latitude: 40.296898, longitude:-111.694647, radius:50};
 var courseArray;
+var specificCourse;
+
 function loadCourses() {
-    // create instance of xhttp
     var xhttp = new XMLHttpRequest();
-    // set xhttp callback for whenever the state of the connection has moved on
     xhttp.onreadystatechange = function() {
-        // checks if state is finished
         if (this.readyState === 4 && this.status === 200) {
-            // parses response and reads from JSON
             var courses = JSON.parse(this.responseText).courses;
-            // logs the data from the response that you needed
             courseArray = courses;
             appendCourses();
-            // By calling append courses after courseArray = courses; I ensure that it has loaded before it runs. VICTORYgit
         }
     };
-    // set connection type and location
     xhttp.open('POST', 'https://golf-courses-api.herokuapp.com/courses', true);
-    // adds headers that the server will read
     xhttp.setRequestHeader('Content-Type', 'application/json');
-    // send headers and 'data' as body to the server
     xhttp.send(JSON.stringify(data));
 }
 
 function appendCourses(){
+    $('#courseSelect').append('<option></option>');
     for (i = courseArray.length; i > 0; i--){
         var name = courseArray.pop(i);
         var name2 = name.name;
         var id = name.id;
-        $('#courseSelect').append('<option data-courseId="'+ id +'">'+ name2 +'</option>');
+        $('#courseSelect').append('<option class="'+ name2 +'" value="'+ id +'">'+ name2 +'</option>');
     }
 }
 
-var specificCourse;
-
-function loadSpecificCourse(){
+function loadSpecificCourse(courseId){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // Typical action to be performed when the document is ready:
-            var specificCourseLocal = JSON.parse(this.responseText).specificCourseLocal;
-            specificCOurse = specificCourseLocal;
-
+        if (this.readyState === 4 && this.status === 200) {
+            specificCourse = JSON.parse(this.responseText).course;
+            console.log(specificCourse);
+            changePage();
         }
     };
-    var address = "http://golf-courses-api.herokuapp.com/courses/"+$('#courseSelect').data-courseid;
-    xhttp.open("GET", address, true);
+    xhttp.open("GET", "http://golf-courses-api.herokuapp.com/courses/"+courseId, true);
     xhttp.send();
 }
-function createScoreCard(){
 
+function changePage(){
+    $('.select').hide();
+    $('.tee').show();
+
+}
+
+function appendTee(){
+    for (i = specificCourse.tee_types.length; i > 0; i--){
+
+    }
 }
 
 loadCourses();
-
-
 

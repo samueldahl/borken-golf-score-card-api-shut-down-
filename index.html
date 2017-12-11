@@ -10,10 +10,14 @@
 <body>
     <div class="select">
        <span>Course</span>
-        <select id="courseSelect">
+        <select id="courseSelect" onchange="loadSpecificCourse(this.value)">
 
         </select>
-       <button onclick="createScoreCard()">Next</button>
+    </div>
+    <div style="display: none;" class="tee">
+        <select id="teeSelect">
+
+        </select>
     </div>
 
 </body>
