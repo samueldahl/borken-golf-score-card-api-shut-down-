@@ -32,25 +32,41 @@ function loadSpecificCourse(courseId){
         if (this.readyState === 4 && this.status === 200) {
             specificCourse = JSON.parse(this.responseText).course;
             console.log(specificCourse);
-            showTee();
+            showPlayerCount();
         }
     };
     xhttp.open("GET", "http://golf-courses-api.herokuapp.com/courses/"+courseId, true);
     xhttp.send();
 }
-
-function showTee(){
+function showPlayerCount(){
     $('.select').hide();
-    $('.tee').show();
-    console.log(specificCourse.holes.length);
-    for (i = specificCourse.tee_types.length; i >0; i--){
-
-    }
-
-
-function appendTee(){
-    }
+    $('.playerCount').show();
 }
 
-loadCourses();
+function loadScoreCard(players){
+    console.log(players);
+}
 
+    loadCourses();
+
+
+
+
+
+
+
+
+
+// function showTee() {
+//     $('.select').hide();
+//     $('.tee').show();
+//     console.log(specificCourse.tee_types.length);
+//     for (i = specificCourse.tee_types.length; i > 0; i--) {
+//         var name = specificCourse.tee_types.slice(i-1, i)[0];
+//         console.log(name);
+//         console.log(name.par);
+//         var name2 =
+//             $('#teeSelect').append('<option class="' + name2 + '" value="' + 10 + '">' + name2 + '</option>');
+//
+//     }
+// }
