@@ -93,16 +93,21 @@ function loadHoles (){
 function loadTeeSelector(){
     for (i = playerCount; i > 0; i--){
         let outerSelect = i;
-        $('#card'+outerSelect).prepend('<select id="select'+ i +'" onchange="loadTeeInfo(this.value)"><option></option></select>');
+        $('#card'+outerSelect).prepend('<select id="select'+ i +'" onchange="loadTeeInfo(this.value,' + i + ')"><option></option></select>');
 
-        $('#card'+outerSelect).prepend('<span onchange="loadTeeInfo(this.value)">Select your Tee  </span>')
+        $('#card'+outerSelect).prepend('<span>Select your Tee  </span>')
         for (j = specificCourse.tee_types.length; j > 0; j--){
             $('#select'+i).append('<option value="' + j + '">' + specificCourse.holes.slice(0,1)[0].tee_boxes.slice(j-1,j)[0].tee_type + '</option>');
         }
     }
 }
 
-function loadYardage(){
+function loadYardage(teeValue,playerValue){
+    holeCount = specificCourse.holes.length;
+    for (i = 0; i < holeCount; i++){
+        $('#yardage'+playerValue).append('<td>SUCCESS</td>');
+
+    }
     // $('#yardage').append('<td>Yardage</td>');
     // let localHoles = holes;
     // if (specificCourse.holes.length <= 9 ) {
@@ -164,7 +169,8 @@ function loadScoreCard(players){
     loadTeeSelector();
 }
 
-function loadTeeInfo(teeValue){
+function loadTeeInfo(teeValue,playerValue){
+    loadYardage(teeValue,playerValue);
 
 }
 
@@ -194,3 +200,5 @@ loadCourses();
 //
 //     }
 // }
+
+//RESUME WORK ON LINE 108, WHERE YOU WERE WORKING ON SELECTORS AND STUFF, IT WAS PERTTY DANK.
