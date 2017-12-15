@@ -1,6 +1,17 @@
 var data = {latitude: 40.296898, longitude:-111.694647, radius:50};
+//data is the object showing location in latitude and longitude that the program uses to search for nearby holes.
+//you can refine your search by changing radius.
+// Due to time restraints the functions required to alter this object were not included.
 var courseArray;
+//courseArray is the information from the initial API call stored as a variable for later use.
 var specificCourse;
+//specificCourse is the object returned by the API stored as a global variable.
+var playerCount;
+//playerCount is equal to the number of players selected after the course is selected.
+var holeCount;
+//holecount is equal to the number of holes in the course.
+var holes;
+//holes is the holes information array within the specificCourse object. This array includes par and crap like that.
 
 function loadCourses() {
     var xhttp = new XMLHttpRequest();
@@ -26,19 +37,6 @@ function appendCourses(){
     }
 }
 
-function loadSpecificCourse(courseId){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            specificCourse = JSON.parse(this.responseText).course;
-            console.log(specificCourse);
-            showPlayerCount();
-        }
-    };
-    xhttp.open("GET", "http://golf-courses-api.herokuapp.com/courses/"+courseId, true);
-    xhttp.send();
-}
-
 function showPlayerCount(){
     $('.select').hide();
     $('.playerCount').show();
@@ -46,15 +44,13 @@ function showPlayerCount(){
 
 function buildCardStructure(players){
     $('#card').append('<tr id="head"></tr>');
-    $('#card').append('<tr id="par"></tr>');
     $('#card').append('<tr id="yardage"></tr>');
     $('#card').append('<tr id="handicap"></tr>');
-    for (i = players; i > 0; i--){
-        $('#card').append('<tr class="score" id="player' + i + '"></tr>');
-    }
+    $('#card').append('<tr id="par"></tr>');
 }
 
 function loadHoles (){
+    holeCount = specificCourse.holes.length;
     if (specificCourse.holes.length <= 9 ) {
         for(i = 1; i <= specificCourse.holes.length; i++){
             $('#head').append('<td>' + i + '</td>');
@@ -71,48 +67,81 @@ function loadHoles (){
         }
         $('#head').append('<td class="inCol">In</td>');
         $('#head').append('<td class="totalCol">Total</td>');
-        //insert second forloop here to complete the process.
     }
 
-    $('#head').prepend('<td></td>');
-}
-
-function loadPar(){
-    console.log('Shoutout to our wonderfull xactware instructors');
+    $('#head').prepend('<td style="background-color:white;"></td>');
 }
 
 function loadYardage(){
-    console.log('Trent');
+    $('#yardage').append('<td>Yardage</td>');
+    let localHoles = holes;
+    if (specificCourse.holes.length <= 9 ) {
+        for(i = 0; i <= specificCourse.holes.length; i++){
+            localHole = localHoles.slice(i,i+1)[0];
+            $('#yardage').append('<td>' + localHole. + '</td>');
+
+        }
+        $('#yardage').append('<td class="totalCol"></td>');
+    }else{
+        for(i = 1; i <= specificCourse.holes.length-9; i++){
+            $('#yardage').append('<td>' + i + '</td>');
+        }
+        $('#yardage').append('<td class="outCol"></td>');
+        for(i = 10; i <= specificCourse.holes.length; i++){
+            $('#yardage').append('<td>' + i + '</td>');
+        }
+        $('#yardage').append('<td class="inCol"></td>');
+        $('#yardage').append('<td class="totalCol"></td>');
+    }
 }
 
 function loadHandicap(){
-    console.log('Mario');
+    $('#handicap').append('<td>Handicap</td>');
+}
+
+function loadPar(){
+    $('#par').append('<td>Par</td>')
 }
 
 function loadScoreBoxes(){
-    console.log('Jason');
+
 }
 
+//functions below called by HTML events
+function loadSpecificCourse(courseId){
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+        specificCourse = JSON.parse(this.responseText).course;
+        console.log(specificCourse);
+        showPlayerCount();
+    }
+};
+xhttp.open("GET", "http://golf-courses-api.herokuapp.com/courses/"+courseId, true);
+xhttp.send();
+}
 
 function loadScoreCard(players){
-    console.log(players);
+    playerCount = players;
+    holes = specificCourse.holes;
     $('.playerCount').hide();
     $('#cardDiv').show();
     buildCardStructure(players);
     loadHoles();
-    loadPar();
     loadYardage();
     loadHandicap();
+    loadPar();
     loadScoreBoxes();
 
 
 }
 
+function calculateScore(){
 
-    loadCourses();
+}
 
-
-
+//functions below called upon page load.
+loadCourses();
 
 
 
