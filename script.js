@@ -43,56 +43,78 @@ function showPlayerCount(){
 }
 
 function buildCardStructure(players){
-    $('#card').append('<tr id="head"></tr>');
-    $('#card').append('<tr id="yardage"></tr>');
-    $('#card').append('<tr id="handicap"></tr>');
-    $('#card').append('<tr id="par"></tr>');
-}
+    for (i = playerCount; i > 0; i--){
+        $('#card'+i).append('<table id="table'+ i +'"></table>');
+    }
+    for (i = playerCount; i > 0; i--) {
+        $('#table'+i).append('<tr id="head'+i+'"></tr>');
+        $('#table'+i).append('<tr id="yardage'+i+'"></tr>');
+        $('#table'+i).append('<tr id="handicap'+i+'"></tr>');
+        $('#table'+i).append('<tr id="par'+i+'"></tr>');
+    }
+//     $('#card').append('<tr id="head"></tr>');
+//     $('#card').append('<tr id="yardage"></tr>');
+//     $('#card').append('<tr id="handicap"></tr>');
+//     $('#card').append('<tr id="par"></tr>');
+    }
 
 function loadHoles (){
     holeCount = specificCourse.holes.length;
     if (specificCourse.holes.length <= 9 ) {
-        for(i = 1; i <= specificCourse.holes.length; i++){
-            $('#head').append('<td>' + i + '</td>');
+        for (i = playerCount; i > 0; i--){
+            let outerSelect = i;
+            for(j = 1; j <= specificCourse.holes.length; j++){
+                $('#head'+outerSelect).append('<td>' + j + '</td>');
 
+            }
         }
-        $('#head').append('<td class="totalCol">total</td>');
-    }else{
-        for(i = 1; i <= specificCourse.holes.length-9; i++){
-            $('#head').append('<td>' + i + '</td>');
-        }
-        $('#head').append('<td class="outCol">Out</td>');
-        for(i = 10; i <= specificCourse.holes.length; i++){
-            $('#head').append('<td>' + i + '</td>');
-        }
-        $('#head').append('<td class="inCol">In</td>');
-        $('#head').append('<td class="totalCol">Total</td>');
     }
+    else{
 
-    $('#head').prepend('<td style="background-color:white;"></td>');
+    }
 }
+//     if (specificCourse.holes.length <= 9 ) {
+//         for(i = 1; i <= specificCourse.holes.length; i++){
+//             $('#head').append('<td>' + i + '</td>');
+//
+//         }
+//         $('#head').append('<td class="totalCol">total</td>');
+//     }else{
+//         for(i = 1; i <= specificCourse.holes.length-9; i++){
+//             $('#head').append('<td>' + i + '</td>');
+//         }
+//         $('#head').append('<td class="outCol">Out</td>');
+//         for(i = 10; i <= specificCourse.holes.length; i++){
+//             $('#head').append('<td>' + i + '</td>');
+//         }
+//         $('#head').append('<td class="inCol">In</td>');
+//         $('#head').append('<td class="totalCol">Total</td>');
+//     }
+//
+//     $('#head').prepend('<td style="background-color:white;"></td>');
+// }
 
 function loadYardage(){
     $('#yardage').append('<td>Yardage</td>');
-    let localHoles = holes;
-    if (specificCourse.holes.length <= 9 ) {
-        for(i = 0; i <= specificCourse.holes.length; i++){
-            localHole = localHoles.slice(i,i+1)[0];
-            $('#yardage').append('<td>' + localHole. + '</td>');
-
-        }
-        $('#yardage').append('<td class="totalCol"></td>');
-    }else{
-        for(i = 1; i <= specificCourse.holes.length-9; i++){
-            $('#yardage').append('<td>' + i + '</td>');
-        }
-        $('#yardage').append('<td class="outCol"></td>');
-        for(i = 10; i <= specificCourse.holes.length; i++){
-            $('#yardage').append('<td>' + i + '</td>');
-        }
-        $('#yardage').append('<td class="inCol"></td>');
-        $('#yardage').append('<td class="totalCol"></td>');
-    }
+    // let localHoles = holes;
+    // if (specificCourse.holes.length <= 9 ) {
+    //     for(i = 0; i <= specificCourse.holes.length; i++){
+    //         localHole = localHoles.slice(i,i+1)[0];
+    //         $('#yardage').append('<td>' + localHole. + '</td>');
+    //
+    //     }
+    //     $('#yardage').append('<td class="totalCol"></td>');
+    // }else{
+    //     for(i = 1; i <= specificCourse.holes.length-9; i++){
+    //         $('#yardage').append('<td>' + i + '</td>');
+    //     }
+    //     $('#yardage').append('<td class="outCol"></td>');
+    //     for(i = 10; i <= specificCourse.holes.length; i++){
+    //         $('#yardage').append('<td>' + i + '</td>');
+    //     }
+    //     $('#yardage').append('<td class="inCol"></td>');
+    //     $('#yardage').append('<td class="totalCol"></td>');
+    // }
 }
 
 function loadHandicap(){
@@ -123,15 +145,18 @@ xhttp.send();
 
 function loadScoreCard(players){
     playerCount = players;
+    for(i = playerCount; i > 0; i--){
+        $('#divForTheDumbestGameEver').prepend('<div id="card'+i+'"></div>');
+    }
     holes = specificCourse.holes;
     $('.playerCount').hide();
-    $('#cardDiv').show();
+    $('#divForTheDumbestGameEver').show();
     buildCardStructure(players);
     loadHoles();
-    loadYardage();
-    loadHandicap();
-    loadPar();
-    loadScoreBoxes();
+    // loadYardage();
+    // loadHandicap();
+    // loadPar();
+    // loadScoreBoxes();
 
 
 }
@@ -141,6 +166,7 @@ function calculateScore(){
 }
 
 //functions below called upon page load.
+
 loadCourses();
 
 
