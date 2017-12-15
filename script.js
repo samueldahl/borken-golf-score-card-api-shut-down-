@@ -93,8 +93,12 @@ function loadHoles (){
 function loadTeeSelector(){
     for (i = playerCount; i > 0; i--){
         let outerSelect = i;
+        $('#card'+outerSelect).prepend('<select id="select'+ i +'" onchange="loadTeeInfo(this.value)"><option></option></select>');
 
-
+        $('#card'+outerSelect).prepend('<span onchange="loadTeeInfo(this.value)">Select your Tee  </span>')
+        for (j = specificCourse.tee_types.length; j > 0; j--){
+            $('#select'+i).append('<option value="' + j + '">' + specificCourse.holes.slice(0,1)[0].tee_boxes.slice(j-1,j)[0].tee_type + '</option>');
+        }
     }
 }
 
@@ -158,11 +162,9 @@ function loadScoreCard(players){
     buildCardStructure(players);
     loadHoles();
     loadTeeSelector();
-    // loadYardage();
-    // loadHandicap();
-    // loadPar();
-    // loadScoreBoxes();
+}
 
+function loadTeeInfo(teeValue){
 
 }
 
