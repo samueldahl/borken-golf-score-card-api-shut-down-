@@ -60,18 +60,15 @@ function buildCardStructure(players){
 
 function loadHoles (){
     holeCount = specificCourse.holes.length;
-    if (specificCourse.holes.length <= 9 ) {
         for (i = playerCount; i > 0; i--){
             let outerSelect = i;
             for(j = 1; j <= specificCourse.holes.length; j++){
-                $('#head'+outerSelect).append('<td>' + j + '</td>');
-
-            }
+                    $('#head'+outerSelect).append('<td>' + j + '</td>');
+                }
+                $('#head'+outerSelect).append('<td class="totalCol">Total</td>');
+                $('#head'+outerSelect).prepend('<td style="background-color:white;"></td>');
         }
-    }
-    else{
 
-    }
 }
 //     if (specificCourse.holes.length <= 9 ) {
 //         for(i = 1; i <= specificCourse.holes.length; i++){
@@ -93,9 +90,16 @@ function loadHoles (){
 //
 //     $('#head').prepend('<td style="background-color:white;"></td>');
 // }
+function loadTeeSelector(){
+    for (i = playerCount; i > 0; i--){
+        let outerSelect = i;
+
+
+    }
+}
 
 function loadYardage(){
-    $('#yardage').append('<td>Yardage</td>');
+    // $('#yardage').append('<td>Yardage</td>');
     // let localHoles = holes;
     // if (specificCourse.holes.length <= 9 ) {
     //     for(i = 0; i <= specificCourse.holes.length; i++){
@@ -153,6 +157,7 @@ function loadScoreCard(players){
     $('#divForTheDumbestGameEver').show();
     buildCardStructure(players);
     loadHoles();
+    loadTeeSelector();
     // loadYardage();
     // loadHandicap();
     // loadPar();
