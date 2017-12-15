@@ -5,6 +5,15 @@ table, tr, td{
 .score{
     background-color:aquamarine;
 }
-.head{
+#head{
     background-color:lightgray;
+}
+.totalCol{
+    background-color:green;
+}
+.outCol{
+    background-color:greenyellow;
+}
+.inCol{
+    background-color:springgreen;
 }

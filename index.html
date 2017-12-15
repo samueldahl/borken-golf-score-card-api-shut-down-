@@ -17,15 +17,17 @@
     <div style="display: none;" class="playerCount">
         <span>Players</span>
         <select id="playerSelect" onchange="loadScoreCard(this.value)">
-            <option class="null" value="0"></option>
+            <option class="null" value=""></option>
             <option class="value" value="1">1</option>
             <option class="value" value="2">2</option>
             <option class="value" value="3">3</option>
             <option class="value" value="4">4</option>
         </select>
     </div>
-    <div style="display: none;" id="card">
+    <div style="display: none;" id="cardDiv">
+        <table id="card">
 
+        </table>
     </div>
 
 </body>

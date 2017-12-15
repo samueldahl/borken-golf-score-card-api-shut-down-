@@ -38,14 +38,76 @@ function loadSpecificCourse(courseId){
     xhttp.open("GET", "http://golf-courses-api.herokuapp.com/courses/"+courseId, true);
     xhttp.send();
 }
+
 function showPlayerCount(){
     $('.select').hide();
     $('.playerCount').show();
 }
 
+function buildCardStructure(players){
+    $('#card').append('<tr id="head"></tr>');
+    $('#card').append('<tr id="par"></tr>');
+    $('#card').append('<tr id="yardage"></tr>');
+    $('#card').append('<tr id="handicap"></tr>');
+    for (i = players; i > 0; i--){
+        $('#card').append('<tr class="score" id="player' + i + '"></tr>');
+    }
+}
+
+function loadHoles (){
+    if (specificCourse.holes.length <= 9 ) {
+        for(i = 1; i <= specificCourse.holes.length; i++){
+            $('#head').append('<td>' + i + '</td>');
+
+        }
+        $('#head').append('<td class="totalCol">total</td>');
+    }else{
+        for(i = 1; i <= specificCourse.holes.length-9; i++){
+            $('#head').append('<td>' + i + '</td>');
+        }
+        $('#head').append('<td class="outCol">Out</td>');
+        for(i = 10; i <= specificCourse.holes.length; i++){
+            $('#head').append('<td>' + i + '</td>');
+        }
+        $('#head').append('<td class="inCol">In</td>');
+        $('#head').append('<td class="totalCol">Total</td>');
+        //insert second forloop here to complete the process.
+    }
+
+    $('#head').prepend('<td></td>');
+}
+
+function loadPar(){
+    console.log('Shoutout to our wonderfull xactware instructors');
+}
+
+function loadYardage(){
+    console.log('Trent');
+}
+
+function loadHandicap(){
+    console.log('Mario');
+}
+
+function loadScoreBoxes(){
+    console.log('Jason');
+}
+
+
 function loadScoreCard(players){
     console.log(players);
+    $('.playerCount').hide();
+    $('#cardDiv').show();
+    buildCardStructure(players);
+    loadHoles();
+    loadPar();
+    loadYardage();
+    loadHandicap();
+    loadScoreBoxes();
+
+
 }
+
 
     loadCourses();
 
