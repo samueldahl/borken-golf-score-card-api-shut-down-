@@ -12,6 +12,8 @@ var holeCount;
 //holecount is equal to the number of holes in the course.
 var holes;
 //holes is the holes information array within the specificCourse object. This array includes par and crap like that.
+var totalScore = 0;
+//total score of the golf card
 
 function loadCourses() {
     var xhttp = new XMLHttpRequest();
@@ -51,6 +53,7 @@ function buildCardStructure(players){
         $('#table'+i).append('<tr id="yardage'+i+'"></tr>');
         $('#table'+i).append('<tr id="handicap'+i+'"></tr>');
         $('#table'+i).append('<tr id="par'+i+'"></tr>');
+        $('#table'+i).append('<tr id="score'+i+'"></tr>');
     }
 //     $('#card').append('<tr id="head"></tr>');
 //     $('#card').append('<tr id="yardage"></tr>');
@@ -66,7 +69,7 @@ function loadHoles (){
                     $('#head'+outerSelect).append('<td>' + j + '</td>');
                 }
                 $('#head'+outerSelect).append('<td class="totalCol">Total</td>');
-                $('#head'+outerSelect).prepend('<td style="background-color:white;"></td>');
+                $('#head'+outerSelect).prepend('<td style="background-color:white;">Hole</td>');
         }
 
 }
@@ -136,16 +139,53 @@ function loadYardage(teeValue,playerValue){
     // }
 }
 
-function loadHandicap(){
-    $('#handicap').append('<td>Handicap</td>');
+function loadHandicap(teeValue, playerValue){
+    holeCount = specificCourse.holes.length;
+    var totalHandicap = 0;
+    for (i = 0; i < holeCount; i++){
+        var handicap = specificCourse.holes.slice(i,i+1)[0].tee_boxes.slice(teeValue-1,teeValue)[0].hcp;
+        $('#handicap'+playerValue).append('<td>' + handicap + '</td>');
+        totalHandicap += handicap;
+    }
+    $('#handicap'+playerValue).prepend('<td>Handicap</td>');
+    $('#handicap'+playerValue).append('<td>' + totalHandicap + '</td>');
 }
 
-function loadPar(){
-    $('#par').append('<td>Par</td>')
+function loadPar(teeValue, playerValue){
+    holeCount = specificCourse.holes.length;
+    var totalPar = 0;
+    for (i = 0; i < holeCount; i++){
+        var par = specificCourse.holes.slice(i,i+1)[0].tee_boxes.slice(teeValue-1,teeValue)[0].par;
+        $('#par'+playerValue).append('<td>' + par + '</td>');
+        totalPar += par;
+    }
+    $('#par'+playerValue).prepend('<td>Par</td>');
+    $('#par'+playerValue).append('<td>' + totalPar + '</td>');
 }
 
-function loadScoreBoxes(){
-
+function loadScoreBoxes(teeValue, playerValue){
+    holeCount = specificCourse.holes.length;
+    for(i = 0; i < holeCount; i++){
+        var scoreChange = (function () {
+            var oldScore = 0;
+            var localPlayer = playerValue;
+            return function () {
+                var score = parseInt(this.value);
+                if (isNaN(score)) return;
+                totalScore += score - oldScore;
+                oldScore = score;
+                $('#total' + localPlayer).html(totalScore);
+            }
+        })();
+        var td = document.createElement('td');
+        var input = document.createElement('input');
+        input = td.appendChild(input);
+        input.type = 'number';
+        input.onchange = scoreChange;
+        td = document.getElementById('score' + playerValue).appendChild(td);
+    }
+    $('#score'+playerValue).append('<td id="total' + playerValue + '"></td>');
+    $('#score'+playerValue).prepend('<td>Score</td>');
 }
 
 //functions below called by HTML events
@@ -176,11 +216,14 @@ function loadScoreCard(players){
 }
 
 function loadTeeInfo(teeValue,playerValue){
-    loadYardage(teeValue,playerValue);
+    loadYardage(teeValue, playerValue);
+    loadHandicap(teeValue, playerValue);
+    loadPar(teeValue, playerValue);
+    loadScoreBoxes(teeValue, playerValue);
 
 }
 
-function calculateScore(){
+function calculateScore(score){
 
 }
 
