@@ -104,10 +104,16 @@ function loadTeeSelector(){
 
 function loadYardage(teeValue,playerValue){
     holeCount = specificCourse.holes.length;
+    var totalYardage = 0;
+    //totalyardage will be the thing that holds the total yards
     for (i = 0; i < holeCount; i++){
-        $('#yardage'+playerValue).append('<td>SUCCESS</td>');
-
+        var yards = specificCourse.holes.slice(i,i+1)[0].tee_boxes.slice(teeValue-1,teeValue)[0].yards;
+        $('#yardage'+playerValue).append('<td>' + yards + '</td>');
+        totalYardage += yards;
     }
+    $('#yardage'+playerValue).prepend('<td>Yardage</td>');
+    $('#yardage'+playerValue).append('<td>' + totalYardage + '</td>');
+
     // $('#yardage').append('<td>Yardage</td>');
     // let localHoles = holes;
     // if (specificCourse.holes.length <= 9 ) {
@@ -202,3 +208,4 @@ loadCourses();
 // }
 
 //RESUME WORK ON LINE 108, WHERE YOU WERE WORKING ON SELECTORS AND STUFF, IT WAS PERTTY DANK.
+//specificCourse.holes.slice(0,1)[0].tee_boxes.slice(0,1)[0].yardage
