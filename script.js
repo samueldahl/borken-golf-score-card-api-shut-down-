@@ -12,8 +12,6 @@ var holeCount;
 //holecount is equal to the number of holes in the course.
 var holes;
 //holes is the holes information array within the specificCourse object. This array includes par and crap like that.
-var totalScore = 0;
-//total score of the golf card
 
 function loadCourses() {
     var xhttp = new XMLHttpRequest();
@@ -169,6 +167,7 @@ function loadScoreBoxes(teeValue, playerValue){
         var scoreChange = (function () {
             var oldScore = 0;
             var localPlayer = playerValue;
+            var totalScore = 0;
             return function () {
                 var score = parseInt(this.value);
                 if (isNaN(score)) return;
