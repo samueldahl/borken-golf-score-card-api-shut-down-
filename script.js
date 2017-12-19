@@ -249,5 +249,4 @@ loadCourses();
 //     }
 // }
 
-//RESUME WORK ON LINE 108, WHERE YOU WERE WORKING ON SELECTORS AND STUFF, IT WAS PERTTY DANK.
 //specificCourse.holes.slice(0,1)[0].tee_boxes.slice(0,1)[0].yardage
